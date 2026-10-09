@@ -174,6 +174,29 @@
     @media (min-width:761px) and (max-width:1099px) { .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } .process { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; } }
     @media (max-width:760px) { .hero.page-hero { grid-template-columns:1fr; } .visual { min-height:250px; } .process { grid-template-columns:1fr; gap:14px; } .contact { display:grid; grid-template-columns:1fr; gap:16px; padding:24px; } }
     @media (max-width:560px) { .hero.page-hero { gap:24px; } .visual { min-height:220px; } .contact { padding:22px 18px; } .step { padding:16px 0; } }
+    /* Inicio · estética de plano de taller */
+    #inicio.page-hero { border-radius:30px 8px 30px 8px; border-color:rgba(85,174,242,.38); background-image:linear-gradient(rgba(85,174,242,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(85,174,242,.055) 1px,transparent 1px),radial-gradient(ellipse at 82% 44%,rgba(85,174,242,.18),transparent 42%),linear-gradient(135deg,#1b252e,#17191b 62%,#211a17); background-size:32px 32px,32px 32px,auto,auto; }
+    #inicio.page-hero::after { content:"◇"; position:absolute; z-index:-1; right:clamp(20px,6vw,90px); top:50%; transform:translateY(-50%) rotate(45deg); color:var(--accent); font-size:clamp(10rem,20vw,18rem); line-height:1; opacity:.075; pointer-events:none; }
+    #inicio .visual { position:relative; border:1px solid rgba(85,174,242,.22); border-radius:50%; background:radial-gradient(circle,rgba(85,174,242,.10),transparent 68%); }
+    #inicio .visual::before { content:""; position:absolute; inset:12%; border:1px solid rgba(85,174,242,.27); border-radius:28% 50% 28% 50%; transform:rotate(45deg); pointer-events:none; }
+    #servicios .section-head h2,#proceso .section-head h2,#historia .section-head h2,#contacto h2 { display:flex; align-items:center; gap:12px; }
+    #servicios .section-head h2::before,#proceso .section-head h2::before,#historia .section-head h2::before,#contacto h2::before { display:inline-grid; place-items:center; flex:0 0 42px; width:42px; height:42px; border:1px solid rgba(85,174,242,.35); border-radius:12px; background:rgba(85,174,242,.08); color:var(--accent); font-size:1.15rem; line-height:1; }
+    #servicios .section-head h2::before { content:"◇"; }
+    #proceso .section-head h2::before { content:"▤"; }
+    #historia .section-head h2::before { content:"◌"; }
+    #contacto h2::before { content:"◎"; }
+    #servicios .card { border-top:2px solid rgba(85,174,242,.8); border-radius:8px 20px 20px 20px; background:linear-gradient(150deg,rgba(85,174,242,.075),transparent 55%),var(--panel); }
+    #servicios .num { display:grid; place-items:center; width:44px; height:44px; margin-bottom:20px; border:1px solid rgba(85,174,242,.3); border-radius:13px; background:rgba(85,174,242,.08); font-size:1.3rem; }
+    #proceso .step { min-height:150px; padding:22px 20px; border:1px solid rgba(85,174,242,.18); border-top:2px solid var(--accent); border-radius:8px 18px 18px; background:linear-gradient(155deg,rgba(85,174,242,.06),rgba(255,255,255,.015)); }
+    #proceso .step b { display:block; margin-bottom:10px; color:var(--ink); letter-spacing:.02em; }
+    #proceso .step p { margin:0; color:var(--muted); }
+    #historia .card { max-width:860px; border-left:3px solid var(--warm); border-radius:8px 20px 20px 8px; }
+    #contacto .contact { border:1px solid rgba(255,255,255,.28); border-radius:28px 8px 28px 8px; background:linear-gradient(120deg,#73bdf1,#d6ecff); box-shadow:0 22px 44px rgba(52,157,226,.14); }
+    #contacto .contact h2 { color:#101a21; }
+    #contacto .contact p { color:#243644; }
+    #contacto .contact .button { border:1px solid rgba(10,24,33,.2); background:#101a21; color:#f6fbff; box-shadow:none; }
+    @media (max-width:760px) { #inicio.page-hero::after { right:14px; top:18%; font-size:9rem; } #inicio .visual { min-height:250px; } #servicios .section-head h2,#proceso .section-head h2,#historia .section-head h2,#contacto h2 { gap:9px; } }
+    @media (max-width:560px) { #inicio.page-hero { background-size:24px 24px,24px 24px,auto,auto; } #inicio .visual { min-height:220px; } #servicios .section-head h2::before,#proceso .section-head h2::before,#historia .section-head h2::before,#contacto h2::before { flex-basis:36px; width:36px; height:36px; } #contacto .contact { border-radius:20px 7px 20px 7px; } }
   </style>
 </head>
 <body>
@@ -219,9 +242,9 @@
       <div class="wrap">
         <div class="section-head"><h2>De la idea<br>a la pieza.</h2><p>Soluciones de impresión 3D para explorar, crear y hacer realidad lo que tenés en mente.</p></div>
         <div class="cards">
-          <article class="card"><span class="num" aria-hidden="true">⬡</span><h3>Prototipos</h3><p>Probá formas y conceptos con una primera versión física de tu idea.</p></article>
+          <article class="card"><span class="num" aria-hidden="true">▦</span><h3>Prototipos</h3><p>Probá formas y conceptos con una primera versión física de tu idea.</p></article>
           <article class="card"><span class="num" aria-hidden="true">◈</span><h3>Piezas a medida</h3><p>Objetos personalizados pensados para el uso y el propósito que necesitás.</p></article>
-          <article class="card"><span class="num" aria-hidden="true">✦</span><h3>Ideas originales</h3><p>Diseños y proyectos especiales que merecen salir de la pantalla.</p></article>
+          <article class="card"><span class="num" aria-hidden="true">△</span><h3>Ideas originales</h3><p>Diseños y proyectos especiales que merecen salir de la pantalla.</p></article>
         </div>
       </div>
     </section>
@@ -238,7 +261,7 @@
     <section id="historia">
       <div class="wrap">
         <div class="section-head"><h2>La historia<br>de 3DScracth.</h2><p>Una idea puede empezar con un boceto, una necesidad o una pieza que todavía no existe.</p></div>
-        <div class="card"><span class="num" aria-hidden="true">⌂</span><h3>Ideas que toman forma</h3><p>3DScracth es un espacio dedicado a acercar la impresión 3D a proyectos e ideas de todo tipo. Nos gusta explorar posibilidades, pensar cada pieza con atención y acompañar el camino desde la primera referencia hasta un objeto tangible. Cada proyecto empieza con una conversación: vos traés la idea y juntos vemos cómo darle forma.</p></div>
+        <div class="card"><span class="num" aria-hidden="true">▧</span><h3>Ideas que toman forma</h3><p>3DScracth es un espacio dedicado a acercar la impresión 3D a proyectos e ideas de todo tipo. Nos gusta explorar posibilidades, pensar cada pieza con atención y acompañar el camino desde la primera referencia hasta un objeto tangible. Cada proyecto empieza con una conversación: vos traés la idea y juntos vemos cómo darle forma.</p></div>
       </div>
     </section>
     <section id="contacto">
