@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scratch — Impresión 3D</title>
+  <meta name="description" content="En Scratch convertimos tus ideas en piezas impresas en 3D. Proyectos a medida, prototipos y objetos personalizados.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Scratch — Impresión 3D">
+  <meta property="og:description" content="Tus ideas, en tres dimensiones. Impresión 3D para proyectos, prototipos y piezas personalizadas.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#101923">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Scratch">
+  <style>
+    :root { color-scheme: dark; --bg:#101923; --panel:#17232f; --ink:#f3f6f8; --muted:#aab8c4; --accent:#b8f34a; --line:#2c3c49; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height:1.55; }
+    a { color:inherit; }
+    .wrap { width:min(1100px, calc(100% - 40px)); margin:auto; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:26px 0; }
+    .brand { display:flex; align-items:center; gap:11px; font-size:1.18rem; font-weight:800; letter-spacing:.08em; text-decoration:none; }
+    .logo-mark { display:block; width:58px; height:58px; flex:none; }
+    .logo-mark text { font-family:inherit; font-weight:900; letter-spacing:1.2px; }
+    .hero-logo { width:230px; height:230px; filter:drop-shadow(0 12px 34px #b8f34a22); }
+    .menu-trigger { display:grid; place-items:center; width:48px; height:48px; border:1px solid var(--line); border-radius:14px; background:var(--panel); color:var(--accent); font-size:1.15rem; letter-spacing:.12em; text-decoration:none; }
+    .menu-trigger:hover, .menu-trigger:focus-visible { border-color:var(--accent); background:#22313b; outline:none; }
+    .drawer { position:fixed; inset:0; z-index:50; visibility:hidden; opacity:0; pointer-events:none; transition:opacity .22s ease, visibility .22s ease; }
+    .drawer:target { visibility:visible; opacity:1; pointer-events:auto; }
+    .drawer-backdrop { position:absolute; inset:0; background:#07101988; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px); }
+    .drawer-panel { position:absolute; top:0; right:0; display:flex; flex-direction:column; gap:24px; width:min(330px, 86vw); height:100%; padding:28px 22px; border-left:1px solid var(--line); background:#101923f5; transform:translateX(100%); transition:transform .22s ease; }
+    .drawer:target .drawer-panel { transform:translateX(0); }
+    .drawer-head { display:flex; align-items:center; justify-content:space-between; color:var(--accent); font-weight:850; letter-spacing:.12em; }
+    .drawer-close { display:grid; place-items:center; width:38px; height:38px; border:1px solid var(--line); border-radius:10px; color:var(--ink); text-decoration:none; font-size:1.3rem; }
+    .drawer-links { display:flex; flex-direction:column; gap:9px; }
+    .drawer-links a { padding:13px 14px; border:1px solid var(--line); border-radius:12px; background:#17232f; color:var(--muted); text-decoration:none; font-weight:700; }
+    .drawer-links a:hover, .drawer-links a:focus-visible { border-color:var(--accent); background:var(--accent); color:#17230b; outline:none; }
+    .hero { display:grid; grid-template-columns:1.15fr .85fr; gap:60px; align-items:center; padding:78px 0 92px; }
+    .eyebrow { color:var(--accent); font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1 { max-width:700px; margin:16px 0 20px; font-size:clamp(3.2rem, 8vw, 6.4rem); line-height:.96; letter-spacing:-.075em; }
+    h1 span { color:var(--accent); }
+    .lead { max-width:520px; color:var(--muted); font-size:1.12rem; }
+    .button { display:inline-flex; align-items:center; gap:10px; margin-top:22px; padding:13px 19px; border-radius:9px; background:var(--accent); color:#17230b; text-decoration:none; font-weight:800; }
+    .button:hover { filter:brightness(1.07); }
+    .visual { min-height:345px; position:relative; display:grid; place-items:center; overflow:hidden; border:1px solid var(--line); border-radius:22px; background:radial-gradient(circle at 50% 46%, #263942 0, #182631 38%, #131e28 75%); }
+    .visual:before,.visual:after { content:""; position:absolute; border:1px solid #405650; border-radius:50%; width:260px; height:260px; transform:rotateX(64deg) rotateZ(-24deg); }
+    .visual:after { width:188px; height:188px; border-color:#819a3f; }
+    .cube { position:relative; z-index:1; width:118px; height:118px; transform:rotate(-30deg) skew(5deg,5deg); background:linear-gradient(135deg,#d6ff7c 0 49%,#8ebd28 50%); clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); box-shadow:0 18px 65px #b8f34a33; }
+    .cube:after { content:""; position:absolute; inset:25% 0 0; border-top:2px solid #efffb6aa; background:linear-gradient(90deg,transparent 49%,#202d19 50% 52%,transparent 53%); }
+    .visual-label { position:absolute; right:18px; bottom:16px; color:#9aaa9d; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; }
+    section { padding:70px 0; border-top:1px solid var(--line); }
+    .section-head { display:flex; justify-content:space-between; gap:30px; align-items:end; margin-bottom:28px; }
+    h2 { margin:0; font-size:clamp(2rem, 4vw, 3rem); letter-spacing:-.055em; line-height:1.05; }
+    .section-head p { max-width:390px; margin:0; color:var(--muted); }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { padding:24px; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
+    .num { display:inline-grid; place-items:center; width:42px; height:42px; margin-bottom:29px; border:1px solid #d6ff7c; border-radius:50%; background:var(--accent); color:#17230b; font-size:1.25rem; font-weight:900; line-height:1; box-shadow:0 4px 0 #6f9825; }
+    h3 { margin:0 0 9px; font-size:1.16rem; }
+    .card p { margin:0; color:var(--muted); font-size:.95rem; }
+    .process { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .step { padding-top:16px; border-top:2px solid var(--accent); }
+    .step b { display:block; margin:0 0 7px; }
+    .step p { margin:0; color:var(--muted); }
+    .contact { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:34px; border-radius:18px; background:var(--accent); color:#17230b; }
+    .contact h2 { max-width:600px; }
+    .contact p { margin:10px 0 0; color:#34451d; }
+    .contact .button { flex-shrink:0; margin:0; background:#17230b; color:#f3f6f8; }
+    footer { padding:27px 0 42px; color:var(--muted); font-size:.86rem; }
+    @media (max-width:720px) {
+      .wrap { width:min(100% - 32px, 540px); }
+      header { flex-wrap:wrap; gap:12px; }
+      .hero { grid-template-columns:1fr; gap:32px; padding:54px 0 64px; }
+      .visual { min-height:270px; }
+      .section-head { display:block; }
+      .section-head p { margin-top:14px; }
+      .cards,.process { grid-template-columns:1fr; }
+      .num { margin-bottom:17px; }
+      .contact { align-items:flex-start; flex-direction:column; padding:26px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <a class="brand" href="#inicio" aria-label="Scratch, inicio">
+      <svg class="logo-mark" viewBox="0 0 120 120" role="img" aria-label="Hornero en su nido, rodeado por el nombre Scratch">
+        <defs><path id="scratch-top" d="M 17,61 A 43,43 0 0,1 103,61"/><path id="scratch-bottom" d="M 103,67 A 43,43 0 0,1 17,67"/></defs>
+        <circle cx="60" cy="60" r="53" fill="none" stroke="#b8f34a" stroke-width="2.5"/>
+        <text fill="#f3f6f8" font-size="11"><textPath href="#scratch-top" startOffset="50%" text-anchor="middle">SCRATCH</textPath></text>
+        <text x="60" y="92" fill="#aab8c4" font-size="5.2" text-anchor="middle">Estando contigo</text>
+        <text x="60" y="100" fill="#aab8c4" font-size="5.2" text-anchor="middle">desde el principio</text>
+        <path d="M18 79c0-22 18-39 42-39s42 17 42 39v3H18z" fill="#a75f3c"/>
+        <path d="M42 82V67a18 18 0 0 1 36 0v15z" fill="#101923"/>
+        <ellipse cx="57" cy="72" rx="11" ry="8.5" fill="#c77b43"/>
+        <path d="M49 71c4-7 11-8 17-4 3 2 4 5 3 8-5-3-11-2-16 1z" fill="#965432"/>
+        <path d="M54 77c5 2 10 1 14-2-1 5-5 7-10 7-3 0-6-1-8-3z" fill="#e8c49a"/>
+        <path d="M48 68c-3 3-5 6-7 9l7-2" fill="#c77b43"/>
+        <circle cx="66" cy="64" r="6" fill="#c77b43"/>
+        <path d="m71 63 8 2-8 3z" fill="#e0a743"/>
+        <circle cx="67" cy="63" r="1.25" fill="#101923"/>
+        <circle cx="67.35" cy="62.65" r=".35" fill="#fff7df"/>
+        <path d="M55 80l-1 3m7-3v3m-4 0h-4m8 0h-4" fill="none" stroke="#e0a743" stroke-width=".9" stroke-linecap="round"/>
+        <path d="M22 83h76" stroke="#d59670" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M28 73c2-9 7-17 14-22m50 22c-2-9-7-17-14-22" fill="none" stroke="#d59670" stroke-width="1.1" stroke-linecap="round"/>
+      </svg>
+      <span>SCRATCH</span>
+    </a>
+    <a class="menu-trigger" href="#menu" aria-label="Open navigation menu">•••</a>
+  </header>
+  <aside class="drawer" id="menu">
+    <a class="drawer-backdrop" href="#" aria-label="Close navigation menu"></a>
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-label="Site navigation">
+      <div class="drawer-head"><span>SCRATCH</span><a class="drawer-close" href="#" aria-label="Close menu">×</a></div>
+      <nav class="drawer-links" aria-label="Site sections">
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Cómo funciona</a>
+        <a href="#historia">Historia</a>
+        <a href="#contacto">Contacto</a>
+        <a href="pedido.html">Hacer un pedido</a>
+      </nav>
+    </div>
+  </aside>
+  <main>
+    <div class="wrap hero" id="inicio">
+      <div>
+        <div class="eyebrow">Estando contigo desde el principio</div>
+        <h1>Tu idea,<br>en <span>3D.</span></h1>
+        <p class="lead">En Scratch damos forma a tus ideas con impresión 3D. Desde una primera prueba hasta una pieza personalizada, lo pensamos con vos.</p>
+        <a class="button" href="#contacto">Hablemos de tu proyecto</a>
+      </div>
+      <div class="visual" aria-label="Logotipo de Scratch: un hornero junto a su nido dentro de un círculo con el nombre de la empresa" role="img">
+        <svg class="logo-mark hero-logo" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="scratch-top-hero" d="M 17,61 A 43,43 0 0,1 103,61"/><path id="scratch-bottom-hero" d="M 103,67 A 43,43 0 0,1 17,67"/></defs>
+          <circle cx="60" cy="60" r="53" fill="none" stroke="#b8f34a" stroke-width="2.5"/>
+          <text fill="#f3f6f8" font-size="11"><textPath href="#scratch-top-hero" startOffset="50%" text-anchor="middle">SCRATCH</textPath></text>
+          <text x="60" y="92" fill="#aab8c4" font-size="5.2" text-anchor="middle">Estando contigo</text>
+          <text x="60" y="100" fill="#aab8c4" font-size="5.2" text-anchor="middle">desde el principio</text>
+          <path d="M18 79c0-22 18-39 42-39s42 17 42 39v3H18z" fill="#a75f3c"/>
+          <path d="M42 82V67a18 18 0 0 1 36 0v15z" fill="#101923"/>
+          <ellipse cx="57" cy="72" rx="11" ry="8.5" fill="#c77b43"/>
+          <path d="M49 71c4-7 11-8 17-4 3 2 4 5 3 8-5-3-11-2-16 1z" fill="#965432"/>
+          <path d="M54 77c5 2 10 1 14-2-1 5-5 7-10 7-3 0-6-1-8-3z" fill="#e8c49a"/>
+          <path d="M48 68c-3 3-5 6-7 9l7-2" fill="#c77b43"/>
+          <circle cx="66" cy="64" r="6" fill="#c77b43"/>
+          <path d="m71 63 8 2-8 3z" fill="#e0a743"/>
+          <circle cx="67" cy="63" r="1.25" fill="#101923"/>
+          <circle cx="67.35" cy="62.65" r=".35" fill="#fff7df"/>
+          <path d="M55 80l-1 3m7-3v3m-4 0h-4m8 0h-4" fill="none" stroke="#e0a743" stroke-width=".9" stroke-linecap="round"/>
+          <path d="M22 83h76" stroke="#d59670" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M28 73c2-9 7-17 14-22m50 22c-2-9-7-17-14-22" fill="none" stroke="#d59670" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <section id="servicios">
+      <div class="wrap">
+        <div class="section-head"><h2>De la idea<br>a la pieza.</h2><p>Soluciones de impresión 3D para explorar, crear y hacer realidad lo que tenés en mente.</p></div>
+        <div class="cards">
+          <article class="card"><span class="num" aria-hidden="true">⬡</span><h3>Prototipos</h3><p>Probá formas y conceptos con una primera versión física de tu idea.</p></article>
+          <article class="card"><span class="num" aria-hidden="true">◈</span><h3>Piezas a medida</h3><p>Objetos personalizados pensados para el uso y el propósito que necesitás.</p></article>
+          <article class="card"><span class="num" aria-hidden="true">✦</span><h3>Ideas originales</h3><p>Diseños y proyectos especiales que merecen salir de la pantalla.</p></article>
+        </div>
+      </div>
+    </section>
+    <section id="proceso">
+      <div class="wrap">
+        <div class="section-head"><h2>Así empieza.</h2><p>Un proceso simple para acercar tu proyecto a una pieza concreta.</p></div>
+        <div class="process">
+          <div class="step"><b>01 · Nos contás</b><p>Compartí tu idea, referencia o archivo y qué querés lograr.</p></div>
+          <div class="step"><b>02 · Lo pensamos</b><p>Revisamos juntos el proyecto y las opciones para llevarlo a impresión.</p></div>
+          <div class="step"><b>03 · Lo hacemos real</b><p>Definimos los detalles y avanzamos con tu pieza impresa en 3D.</p></div>
+        </div>
+      </div>
+    </section>
+    <section id="historia">
+      <div class="wrap">
+        <div class="section-head"><h2>La historia<br>de Scratch.</h2><p>Una idea puede empezar con un boceto, una necesidad o una pieza que todavía no existe.</p></div>
+        <div class="card"><span class="num" aria-hidden="true">⌂</span><h3>Ideas que toman forma</h3><p>Scratch es un espacio dedicado a acercar la impresión 3D a proyectos e ideas de todo tipo. Nos gusta explorar posibilidades, pensar cada pieza con atención y acompañar el camino desde la primera referencia hasta un objeto tangible. Cada proyecto empieza con una conversación: vos traés la idea y juntos vemos cómo darle forma.</p></div>
+      </div>
+    </section>
+    <section id="contacto">
+      <div class="wrap contact">
+        <div><h2>¿Qué te gustaría crear?</h2><p>Contanos tu idea y charlamos cómo convertirla en una pieza 3D.</p><p><strong>Email:</strong> <a href="mailto:Contacto@scratch.com">Contacto@scratch.com</a></p><p><strong>Teléfono:</strong> <a href="tel:+5491100000000">+54 9 11 0000 0000</a></p></div>
+        <a class="button" href="mailto:Contacto@scratch.com">Escribinos por Email</a>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap">Scratch · Servicios de impresión 3D</footer>
+</body>
+</html>
